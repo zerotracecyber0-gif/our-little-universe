@@ -51,9 +51,52 @@ body{
 
 .bg{
   background:
-    radial-gradient(circle at 50% 20%,#35105c 0%,transparent 35%),
-    radial-gradient(circle at 20% 80%,#5d174f 0%,transparent 35%),
-    linear-gradient(135deg,#080016,#17002e,#05000d);
+    radial-gradient(circle at 50% 15%,rgba(255,160,220,.20),transparent 30%),
+    radial-gradient(circle at 15% 75%,rgba(255,80,190,.18),transparent 32%),
+    radial-gradient(circle at 90% 80%,rgba(150,90,255,.18),transparent 30%),
+    linear-gradient(135deg,#090018,#210039,#10001d);
+  position:relative;
+  overflow:hidden;
+}
+
+/* Dreamy flowers on every page */
+.bg::before,
+.bg::after{
+  position:absolute;
+  pointer-events:none;
+  z-index:0;
+  opacity:.75;
+  filter:drop-shadow(0 0 12px rgba(255,150,220,.45));
+}
+
+.bg::before{
+  content:"🌸";
+  font-size:55px;
+  top:6%;
+  left:5%;
+  animation:flowerFloat 5s ease-in-out infinite;
+}
+
+.bg::after{
+  content:"🌷";
+  font-size:48px;
+  bottom:8%;
+  right:6%;
+  animation:flowerFloat 6s ease-in-out infinite reverse;
+}
+
+.screen > *{
+  position:relative;
+  z-index:2;
+}
+
+@keyframes flowerFloat{
+  0%,100%{
+    transform:translateY(0) rotate(-5deg);
+  }
+  50%{
+    transform:translateY(-15px) rotate(5deg);
+  }
 }
 
 h1{
@@ -153,16 +196,67 @@ input{
 
 /* MEMORIES */
 .cards{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  justify-content:center;
-  max-width:700px;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:14px;
+  width:100%;
+  max-width:560px;
+  padding:0 8px;
 }
 
 .card{
-  width:135px;
-  height:150px;
+  width:100%;
+  min-height:175px;
+  border-radius:22px;
+  background:linear-gradient(
+    145deg,
+    rgba(255,255,255,.14),
+    rgba(255,255,255,.05)
+  );
+  border:1px solid rgba(255,255,255,.18);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:14px 10px;
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.3),
+    inset 0 0 20px rgba(255,170,230,.06);
+  overflow:hidden;
+}
+
+.card:nth-child(3){
+  grid-column:1 / -1;
+  max-width:270px;
+  justify-self:center;
+}
+
+.card img{
+  width:70px !important;
+  height:70px !important;
+  object-fit:cover;
+  border-radius:18px;
+  margin-bottom:8px;
+  box-shadow:0 0 15px rgba(255,150,220,.35);
+}
+
+.card span{
+  font-size:36px;
+  margin-bottom:7px;
+}
+
+.card b{
+  font-size:17px;
+  line-height:1.15;
+  margin-bottom:6px;
+}
+
+.card small{
+  font-size:13px;
+  line-height:1.25;
+  text-align:center;
+  display:block;
+}
   border-radius:20px;
   background:linear-gradient(145deg,#ffffff18,#ffffff06);
   border:1px solid #ffffff22;
@@ -274,25 +368,272 @@ video{
   opacity:.65;
   margin-top:10px;
 }
+/* =================================
+   FLOWER HEART OPENING GAME
+================================= */
+
+.opening-title{
+  position:absolute;
+  top:9%;
+  opacity:.8;
+  z-index:3;
+}
+
+.opening-title p{
+  font-size:16px;
+}
+
+/* BIG HEART */
+
+#flowerHeart{
+  position:absolute;
+  top:20%;
+  left:50%;
+  width:190px;
+  height:170px;
+  transform:translateX(-50%) rotate(-45deg);
+  background:linear-gradient(135deg,#ff4f9a,#ff176f);
+  border-radius:25px;
+  box-shadow:0 0 25px rgba(255,80,160,.7),
+             0 0 70px rgba(255,80,160,.35);
+  z-index:5;
+}
+
+#flowerHeart::before,
+#flowerHeart::after{
+  content:"";
+  position:absolute;
+  width:190px;
+  height:170px;
+  background:linear-gradient(135deg,#ff4f9a,#ff176f);
+  border-radius:50%;
+}
+
+#flowerHeart::before{
+  top:-85px;
+  left:0;
+}
+
+#flowerHeart::after{
+  top:0;
+  left:85px;
+}
+
+.heartFlowers{
+  position:absolute;
+  z-index:10;
+  width:210px;
+  height:180px;
+  transform:rotate(45deg);
+  left:-10px;
+  top:5px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  font-size:25px;
+  line-height:1.25;
+  pointer-events:none;
+}
+
+/* BOW AREA */
+
+#bowArea{
+  position:absolute;
+  bottom:13%;
+  left:50%;
+  width:280px;
+  height:130px;
+  transform:translateX(-50%);
+  z-index:20;
+}
+
+#bow{
+  position:absolute;
+  left:18px;
+  top:5px;
+  width:80px;
+  height:115px;
+  border-right:6px solid #dca86b;
+  border-radius:50%;
+}
+
+#bow::before{
+  content:"";
+  position:absolute;
+  width:105px;
+  height:2px;
+  background:#eee;
+  left:38px;
+  top:57px;
+}
+
+/* ARROW */
+
+#arrow{
+  position:absolute;
+  left:72px;
+  top:48px;
+  width:175px;
+  height:45px;
+  display:flex;
+  align-items:center;
+  cursor:grab;
+  touch-action:none;
+  user-select:none;
+}
+
+#arrow span{
+  font-size:23px;
+  color:#f5d6a0;
+  white-space:nowrap;
+}
+
+#arrow:active{
+  cursor:grabbing;
+}
+
+/* MESSAGE */
+
+.shoot-message{
+  position:absolute;
+  bottom:28%;
+  width:90%;
+  font-size:15px;
+  opacity:.85;
+  z-index:10;
+}
+
+/* REVEAL */
+
+#openingReveal{
+  position:absolute;
+  inset:0;
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:25px;
+  z-index:50;
+}
+
+#openingReveal.show{
+  display:flex;
+  animation:revealIn 1.5s ease forwards;
+}
+
+@keyframes revealIn{
+  from{
+    opacity:0;
+    transform:scale(.8);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+/* FLOWER EXPLOSION */
+
+.explosionFlower{
+  position:absolute;
+  z-index:40;
+  pointer-events:none;
+  font-size:28px;
+  animation:flowerBoom 1.8s ease-out forwards;
+}
+
+@keyframes flowerBoom{
+  0%{
+    transform:translate(-50%,-50%) scale(.2);
+    opacity:1;
+  }
+
+  100%{
+    transform:
+      translate(
+        calc(-50% + var(--x)),
+        calc(-50% + var(--y))
+      )
+      scale(1.4)
+      rotate(var(--r));
+    opacity:0;
+  }
+}
+
+/* HEART HIT */
+
+.heart-hit{
+  animation:heartHit .45s ease forwards;
+}
+
+@keyframes heartHit{
+  0%{
+    transform:translateX(-50%) rotate(-45deg) scale(1);
+  }
+
+  50%{
+    transform:translateX(-50%) rotate(-45deg) scale(1.25);
+  }
+
+  100%{
+    transform:translateX(-50%) rotate(-45deg) scale(0);
+    opacity:0;
+  }
+  }
 </style>
 </head>
 
 <body>
 
-<!-- 1 FLOWERS -->
+<!-- 1 FLOWER HEART GAME -->
 <section class="screen active bg" id="s1">
-  <div class="flower f1">🪷</div>
-  <div class="flower f2">🌷</div>
-  <div class="flower f3">🌺</div>
-  <div class="flower f4">🌹</div>
-  <div class="flower f5">💐</div>
-  
-  <p>Somewhere between two ordinary lives...</p>
-  <h1>Our Little Universe</h1>
-  <p>there became a little universe of its own. ❤️</p>
 
-  <button onclick="next()">Enter our universe ✨</button>
+  <div class="opening-title">
+    <p>A little journey begins...</p>
+  </div>
+
+  <!-- BIG HEART WITH FLOWERS INSIDE -->
+  <div id="flowerHeart">
+    <div class="heartFlowers">
+      🌸 🌷 🌺
+      <br>
+      🌷 ❤️ 🌸
+      <br>
+      🌺 🌸 🌷
+    </div>
+  </div>
+
+  <p id="shootMessage" class="shoot-message">
+    Pull the arrow and hit the heart ❤️
+  </p>
+
+  <!-- BOW -->
+  <div id="bowArea">
+    <div id="bow">)</div>
+
+    <div id="arrow">
+      <span>━━━━━━➤</span>
+    </div>
+  </div>
+
+  <!-- FLOWER EXPLOSION -->
+  <div id="flowerExplosion"></div>
+
+  <!-- TITLE AFTER HIT -->
+  <div id="openingReveal">
+    <p>Somewhere between two ordinary lives...</p>
+
+    <h1>Our Little Universe</h1>
+
+    <p>there became a little universe of its own. ❤️</p>
+
+    <button onclick="next()">Enter our universe ✨</button>
+  </div>
+
 </section>
+  
 
 
 <!-- 2 SECRET -->
@@ -704,6 +1045,207 @@ function createPuzzle(){
     puzzle.appendChild(tile);
   });
 }
+/* FLOWER HEART ARROW GAME */
+
+const arrow = document.getElementById("arrow");
+const heart = document.getElementById("flowerHeart");
+const shootMessage = document.getElementById("shootMessage");
+const explosion = document.getElementById("flowerExplosion");
+const reveal = document.getElementById("openingReveal");
+
+let draggingArrow = false;
+let startX = 0;
+let arrowStartLeft = 72;
+let shotInProgress = false;
+
+arrow.addEventListener("pointerdown", function(e){
+
+  if(shotInProgress) return;
+
+  draggingArrow = true;
+  arrow.setPointerCapture(e.pointerId);
+  startX = e.clientX;
+
+  arrow.style.transition = "none";
+});
+
+arrow.addEventListener("pointermove", function(e){
+
+  if(!draggingArrow || shotInProgress) return;
+
+  let distance = e.clientX - startX;
+
+  if(distance > 0){
+    distance = 0;
+  }
+
+  distance = Math.max(distance,-75);
+
+  arrow.style.left =
+    (arrowStartLeft + distance) + "px";
+});
+
+arrow.addEventListener("pointerup", function(){
+
+  if(!draggingArrow || shotInProgress) return;
+
+  draggingArrow = false;
+
+  let currentLeft =
+    parseFloat(getComputedStyle(arrow).left);
+
+  let pullDistance =
+    arrowStartLeft - currentLeft;
+
+  if(pullDistance < 20){
+
+    resetArrow();
+    return;
+  }
+
+  shootArrow();
+});
+
+function shootArrow(){
+
+  shotInProgress = true;
+
+  shootMessage.textContent =
+    "🏹 Here we go... ❤️";
+
+  const heartRect =
+    heart.getBoundingClientRect();
+
+  const arrowRect =
+    arrow.getBoundingClientRect();
+
+  const targetX =
+    heartRect.left + heartRect.width / 2;
+
+  const targetY =
+    heartRect.top + heartRect.height / 2;
+
+  const arrowX =
+    arrowRect.left + arrowRect.width / 2;
+
+  const arrowY =
+    arrowRect.top + arrowRect.height / 2;
+
+  const dx = targetX - arrowX;
+  const dy = targetY - arrowY;
+
+  arrow.style.transition =
+    "transform .65s ease";
+
+  arrow.style.transform =
+    `translate(${dx}px,${dy}px)`;
+
+  setTimeout(function(){
+
+    heart.classList.add("heart-hit");
+
+    arrow.style.opacity = "0";
+
+    shootMessage.textContent =
+      "💥 You hit my heart! ❤️";
+
+    createFlowerExplosion();
+
+    setTimeout(function(){
+
+      reveal.classList.add("show");
+
+    },1200);
+
+  },700);
+}
+
+function resetArrow(){
+
+  arrow.style.transition =
+    "left .35s ease, transform .35s ease";
+
+  arrow.style.left =
+    arrowStartLeft + "px";
+
+  arrow.style.transform =
+    "none";
+
+  arrow.style.opacity =
+    "1";
+
+  shotInProgress =
+    false;
+
+  shootMessage.textContent =
+    "Pull the arrow and hit the heart ❤️";
+}
+
+function createFlowerExplosion(){
+
+  const flowers = [
+    "🌸",
+    "🌷",
+    "🌺",
+    "🌹",
+    "🌼",
+    "💮"
+  ];
+
+  const rect =
+    heart.getBoundingClientRect();
+
+  const centerX =
+    rect.left + rect.width / 2;
+
+  const centerY =
+    rect.top + rect.height / 2;
+
+  for(let i = 0; i < 45; i++){
+
+    const flower =
+      document.createElement("div");
+
+    flower.className =
+      "explosionFlower";
+
+    flower.textContent =
+      flowers[
+        Math.floor(
+          Math.random() * flowers.length
+        )
+      ];
+
+    flower.style.left =
+      centerX + "px";
+
+    flower.style.top =
+      centerY + "px";
+
+    const angle =
+      Math.random() * Math.PI * 2;
+
+    const distance =
+      120 + Math.random() * 450;
+
+    flower.style.setProperty(
+      "--x",
+      Math.cos(angle) * distance + "px"
+    );
+
+    flower.style.setProperty(
+      "--y",
+      Math.sin(angle) * distance + "px"
+    );
+
+    flower.style.setProperty(
+      "--r",
+      (Math.random() * 720 - 360) + "deg"
+    );
+
+    explosion.appendChild(flower);
+  }
+  }
 </script>
 
 </body>
